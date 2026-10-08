@@ -1,11 +1,16 @@
-function formatAs12HourClock(time) {
-
+export function formatAs12HourClock(time) {
   const hours = Number(time.slice(0, 2));
+  const minutes = time.slice(2);
 
-  if (hours > 12) {
-    return `${hours - 12}:00 pm`;
+  const period = hours >= 12 ? "pm" : "am";
+
+  let hours12 = hours % 12;
+
+  if (hours12 === 0) {
+    hours12 = 12;
   }
-  return `${time} am`;
-}
 
-export {formatAs12HourClock};
+  const formattedHours = String(hours12).padStart(2, "0");
+
+  return `${formattedHours}${minutes} ${period}`;
+}
